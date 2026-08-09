@@ -11,7 +11,7 @@ version = "0.1.0"
 [grammars.musa]
 path = "editors/tree-sitter-musa"
 repository = "file:///Users/jcreinhold/Code/musa"
-rev = "7705e8724451483e02b584d04b42ad68f898e471"
+rev = "d48a7b829edf0863098cc0044c4a10a6a760bfc4"
 
 [language_servers.musa-lsp]
 languages = ["musa"]
