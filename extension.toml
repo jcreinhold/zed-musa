@@ -1,0 +1,18 @@
+authors = ["Jacob Reinhold"]
+description = "Language support for musa — the notation-first music language"
+id = "musa"
+name = "musa"
+repository = "https://github.com/jcreinhold/zed-musa"
+schema_version = 1
+version = "0.1.0"
+
+# The grammar is prompt 80's artifact, pinned by rev; the queries under
+# languages/musa/ are written against its committed node names.
+[grammars.musa]
+path = "editors/tree-sitter-musa"
+repository = "file:///Users/jcreinhold/Code/musa"
+rev = "6dfdbe72b9e46d671c4d219ac147edec5ff974ee"
+
+[language_servers.musa-lsp]
+languages = ["musa"]
+name = "musa language server"

@@ -1,0 +1,31 @@
+name = "musa"
+grammar = "musa"
+path_suffixes = ["musa"]
+line_comments = ["// "]
+block_comments = [["/*", " */"]]
+hard_tabs = false
+tab_size = 4
+
+brackets = [
+  { start = "{", end = "}", close = true, newline = true },
+  { start = "[", end = "]", close = true, newline = true },
+  { start = "(", end = ")", close = true, newline = true },
+  { start = "\"", end = "\"", close = true, newline = false, not_in = [
+    "string",
+    "comment",
+  ] },
+  { start = "/*", end = " */", close = true, newline = false, not_in = [
+    "string",
+  ] },
+]
+
+# The semicolon habit (roadmap §7): a statement ends explicitly, so these
+# are the characters an auto-close may precede.
+autoclose_before = ";:.,=}])>\n\t"
+
+collapsed_placeholder = "…"
+
+# §7's explicit braces make indentation declarative: deeper after `{`,
+# back out before `}`.
+increase_indent_pattern = "\\{\\s*$"
+decrease_indent_pattern = "^\\s*\\}"

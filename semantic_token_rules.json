@@ -1,0 +1,38 @@
+[
+  {
+    "token": "comment",
+    "scopes": ["comment"]
+  },
+  {
+    "token": "keyword",
+    "scopes": ["keyword"]
+  },
+  {
+    "token": "macro",
+    "scopes": ["keyword.import"]
+  },
+  {
+    "token": "enumMember",
+    "scopes": ["constant"]
+  },
+  {
+    "token": "number",
+    "scopes": ["number"]
+  },
+  {
+    "token": "string",
+    "scopes": ["string"]
+  },
+  {
+    "token": "variable",
+    "scopes": ["variable"]
+  },
+  {
+    "token": "operator",
+    "scopes": ["operator"]
+  },
+  {
+    "token": "unit",
+    "scopes": ["constant"]
+  }
+]
