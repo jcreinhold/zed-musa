@@ -31,7 +31,6 @@
   "down"
   "up"
   "rest"
-  "chord"
   "repeat"
   "slur"
   "dynamic"
@@ -150,9 +149,22 @@
   ")"
 ] @punctuation.bracket
 
+; `|` is a barline and `>` and `^` are the accent and the marcato. They are
+; punctuation for the same reason `/` is: the real highlighter files all three
+; under `TokenClass::Punctuation`, and a second reader owns no vocabulary.
+;
+; `#` is here rather than with the pitches because that is where the real
+; highlighter puts it: a sharp inside `g#4` never reaches this list — the
+; whole literal is one token — and the one that stands alone, in `key g#
+; minor` and `f#m7`, is `TokenClass::Punctuation` there.
 [
   ";"
   ","
   ":"
   "."
+  "/"
+  "#"
+  "|"
+  ">"
+  "^"
 ] @punctuation.delimiter

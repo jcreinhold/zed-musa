@@ -7,11 +7,13 @@ schema_version = 1
 version = "0.1.0"
 
 # The grammar is prompt 80's artifact, pinned by rev; the queries under
-# languages/musa/ are written against its committed node names.
+# languages/musa/ are written against its committed node names. Pinned at
+# prompt 91, which is the note syntax as it stands: `c4/4`, `f#3`, `|` bars,
+# and events that end themselves.
 [grammars.musa]
 path = "editors/tree-sitter-musa"
 repository = "file:///Users/jcreinhold/Code/musa"
-rev = "d48a7b829edf0863098cc0044c4a10a6a760bfc4"
+rev = "14bdfb537b1fd6c5ea29eb0535b40ee3e4fdb58f"
 
 [language_servers.musa-lsp]
 languages = ["musa"]
