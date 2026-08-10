@@ -1,38 +1,50 @@
 [
   {
     "token": "comment",
-    "scopes": ["comment"]
+    "scopes": [
+      "comment"
+    ]
   },
   {
     "token": "keyword",
-    "scopes": ["keyword"]
+    "scopes": [
+      "keyword"
+    ]
   },
   {
     "token": "macro",
-    "scopes": ["keyword.import"]
+    "scopes": [
+      "keyword.import"
+    ]
   },
   {
     "token": "enumMember",
-    "scopes": ["constant"]
+    "scopes": [
+      "constant"
+    ]
   },
   {
     "token": "number",
-    "scopes": ["number"]
+    "scopes": [
+      "number"
+    ]
   },
   {
     "token": "string",
-    "scopes": ["string"]
-  },
-  {
-    "token": "variable",
-    "scopes": ["variable"]
+    "scopes": [
+      "string"
+    ]
   },
   {
     "token": "operator",
-    "scopes": ["operator"]
+    "scopes": [
+      "operator"
+    ]
   },
   {
     "token": "unit",
-    "scopes": ["constant"]
+    "scopes": [
+      "constant"
+    ]
   }
 ]
