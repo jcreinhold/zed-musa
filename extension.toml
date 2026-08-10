@@ -8,12 +8,12 @@ version = "0.1.0"
 
 # The grammar is prompt 80's artifact, pinned by rev; the queries under
 # languages/musa/ are written against its committed node names. Pinned at
-# prompt 94, which adds the elaboration expression and type grammar while
-# preserving the notation-first music block syntax.
+# prompt 112, which moves fn bodies to braces (`fn f() -> t { e }`) and adds
+# the block expression.
 [grammars.musa]
 path = "editors/tree-sitter-musa"
 repository = "file:///Users/jcreinhold/Code/musa"
-rev = "b20e0f04561be9fc5e86da96a5e46f9e56482a80"
+rev = "4e9872d2e22ccc4bb228c97cc182af18366caaeb"
 
 [language_servers.musa-lsp]
 languages = ["musa"]
