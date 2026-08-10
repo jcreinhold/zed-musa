@@ -1,0 +1,23 @@
+{
+  "skill_name": "zed-extension",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add label_for_completion to the musa Zed extension (src/lib.rs) so completions render with syntax highlighting. Handle keywords, functions, types, and properties. Use musa's syntax conventions (part, voice, score, motif, etc.).",
+      "expected_output": "Modified lib.rs with a label_for_completion implementation that uses CodeLabel with appropriate spans for different CompletionKind variants, using musa syntax keywords like 'part', 'voice', 'motif' for code generation.",
+      "files": ["src/lib.rs"]
+    },
+    {
+      "id": 2,
+      "prompt": "The musa Zed extension's extension.toml uses a hardcoded file:// local path for the grammar. Update it so it can be published to the Zed extensions registry. Make sure it meets all publishing requirements.",
+      "expected_output": "Updated extension.toml with HTTPS repository URL, real commit SHA, and any other changes needed for registry publishing (license, naming, etc.).",
+      "files": ["extension.toml"]
+    },
+    {
+      "id": 3,
+      "prompt": "Add an outline.scm query file for the musa Zed extension that shows scores, parts, voices, motifs, and studio blocks in the outline panel. Voices inside parts should show the part name as context.",
+      "expected_output": "New outline.scm file using Zed's @item/@name/@context captures (not tags.scm @definition captures), covering all major musa constructs, written against the committed node names in editors/tree-sitter-musa.",
+      "files": ["languages/musa/outline.scm"]
+    }
+  ]
+}
