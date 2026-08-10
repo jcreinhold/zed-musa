@@ -14,6 +14,12 @@
 [
   "piece"
   "library"
+  "template"
+  "signature"
+  "structure"
+  "mod"
+  "make"
+  "as"
   "tempo"
   "meter"
   "key"
@@ -72,6 +78,7 @@
   "let"
   "fn"
   "music"
+  "import"
   "option"
   "list"
   "match"
@@ -81,8 +88,9 @@
   "false"
 ] @keyword
 
-; `use` alone, as TokenClass::Use says: it is where material comes from —
-; an import of a library or a call of a motif.
+; `use` alone, as TokenClass::Use says: it is where material comes from.
+; `import` is a structural keyword and belongs with the list above: it brings
+; in names, not material.
 "use" @keyword.import
 
 ; --- The music itself ------------------------------------------------------
@@ -112,6 +120,17 @@
 (bus_declaration name: (identifier) @type)
 
 (voice_declaration name: (identifier) @variable)
+; A template's own name, and the name a `make` gives what it makes.
+(piece_declaration template_name: (identifier) @function)
+(make_statement template: (identifier) @function.call)
+(make_statement name: (identifier) @variable)
+; A signature and a structure are types in the editor's vocabulary: they name
+; structure, never a value.
+(signature_declaration name: (identifier) @type)
+(structure_declaration name: (identifier) @type)
+(structure_declaration signature: (identifier) @type)
+(signature_member name: (identifier) @variable)
+(name_expression member: (identifier) @variable)
 (profile_declaration name: (identifier) @variable)
 (bar_statement name: (identifier) @label)
 

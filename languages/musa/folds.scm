@@ -5,6 +5,9 @@
 [
   (piece_declaration)
   (library_declaration)
+  (template_declaration)
+  (signature_declaration)
+  (structure_declaration)
   (score_declaration)
   (part_declaration)
   (voice_declaration)
@@ -23,4 +26,5 @@
   (harmony_declaration)
   (music_expression)
   (match_expression)
+  (block_expression)
 ] @fold
