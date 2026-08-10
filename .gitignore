@@ -2,3 +2,8 @@
 extension.wasm
 .DS_Store
 /grammars
+
+# Agent runtime artifacts
+.pi/sessions/
+.pi-subagents/
+.claude/settings.local.json
