@@ -401,9 +401,9 @@ fn label_for_symbol(
 `CodeLabel` has three fields:
 
 - **`code`**: A string of synthetic source code. Zed parses this with tree-sitter to determine highlighting. It does not
-    need to be valid — just enough for tree-sitter to produce useful captures.
+  need to be valid — just enough for tree-sitter to produce useful captures.
 - **`spans`**: Which parts of `code` to actually display (and how). `code_range(range)` uses tree-sitter highlighting
-    from that range. `literal(text, highlight)` shows text with a fixed highlight.
+  from that range. `literal(text, highlight)` shows text with a fixed highlight.
 - **`filter_range`**: The byte range within the displayed text that the fuzzy matcher searches against.
 
 The key insight: you construct fake source code that, when parsed, gives the right highlighting — then select which

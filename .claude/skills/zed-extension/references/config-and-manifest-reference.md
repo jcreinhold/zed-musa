@@ -71,9 +71,9 @@ path = "editors/tree-sitter-musa"
 - Branch names work but are unreliable — always use commit SHAs for distribution
 - Uncommitted changes are invisible to `file://` clones
 - The rev must point at a commit that contains **all** generated files: `src/parser.c`, `src/grammar.json`, and
-    `src/node-types.json`. Forgetting `grammar.json` or `node-types.json` causes silent failures.
+  `src/node-types.json`. Forgetting `grammar.json` or `node-types.json` causes silent failures.
 - The commit sequence is always: (1) `tree-sitter generate`, (2) commit the three generated files + query changes, (3)
-    update `extension.toml` rev to that commit SHA, (4) commit `extension.toml`
+  update `extension.toml` rev to that commit SHA, (4) commit `extension.toml`
 - Multiple grammars can be declared (e.g., `[grammars.musa]`, `[grammars.musa-markdown]`)
 
 ### Language Servers
@@ -269,16 +269,16 @@ strip = true                     # Remove debug symbols
 
 ### Critical Requirements
 
-| Requirement                    | Why                                                  |
-| ------------------------------ | ---------------------------------------------------- |
-| `crate-type = ["cdylib"]`      | Produces the `.wasm` module Zed loads                |
-| `[workspace]` (empty)          | Prevents Cargo from merging into parent workspace    |
+| Requirement | Why |
+| --- | --- |
+| `crate-type = ["cdylib"]` | Produces the `.wasm` module Zed loads |
+| `[workspace]` (empty) | Prevents Cargo from merging into parent workspace |
 | `zed_extension_api` dependency | Provides Extension trait + register_extension! macro |
 
 ### Optional Dependencies
 
 - `serde` + `serde_json` — already re-exported by `zed_extension_api`, but you may need direct access for complex JSON
-    manipulation
+  manipulation
 - No other dependencies are typically needed — keep the WASM binary small
 
 ### Build Command
@@ -296,8 +296,8 @@ Output: `target/wasm32-wasip2/release/<crate_name>.wasm`
 
 ### WASM Target History
 
-| Target          | Status                                       |
-| --------------- | -------------------------------------------- |
-| `wasm32-wasi`   | Removed in Rust 1.84 (Jan 2025) — do not use |
-| `wasm32-wasip1` | Works but deprecated in favor of wasip2      |
-| `wasm32-wasip2` | Current target — use this                    |
+| Target | Status |
+| --- | --- |
+| `wasm32-wasi` | Removed in Rust 1.84 (Jan 2025) — do not use |
+| `wasm32-wasip1` | Works but deprecated in favor of wasip2 |
+| `wasm32-wasip2` | Current target — use this |

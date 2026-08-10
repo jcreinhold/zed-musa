@@ -273,13 +273,13 @@ pub struct Command {
 
 Resource handle with methods:
 
-| Method                 | Returns          | Purpose                               |
-| ---------------------- | ---------------- | ------------------------------------- |
-| `id()`                 | `u64`            | Unique worktree identifier            |
-| `root_path()`          | `String`         | Absolute path to worktree root        |
+| Method | Returns | Purpose |
+| --- | --- | --- |
+| `id()` | `u64` | Unique worktree identifier |
+| `root_path()` | `String` | Absolute path to worktree root |
 | `read_text_file(path)` | `Result<String>` | Read a file relative to worktree root |
-| `which(binary_name)`   | `Option<String>` | Find binary in shell PATH             |
-| `shell_env()`          | `EnvVars`        | Shell environment variables           |
+| `which(binary_name)` | `Option<String>` | Find binary in shell PATH |
+| `shell_env()` | `EnvVars` | Shell environment variables |
 
 ### Project
 
