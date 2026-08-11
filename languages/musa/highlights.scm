@@ -1,4 +1,4 @@
-; Highlighting, in the language's own vocabulary (prompt 80).
+; Highlighting, in the language's own vocabulary.
 ;
 ; The colors are the theme's business; the captures are ours. Zed's default
 ; themes paint the standard captures the way Rust readers expect: @function
@@ -78,6 +78,7 @@
   "diminuendo"
   "to"
   "bar"
+  "assert"
   "ending"
   "mobile"
   "improvise"
@@ -86,6 +87,7 @@
   "let"
   "fn"
   "music"
+  "kernel"
   "import"
   "match"
   ; `use` alone, as TokenClass::Use says: it is where material comes from.
@@ -95,16 +97,15 @@
 
 ; --- Keywords whose class depends on where they stand -----------------------
 ;
-; `harmony`, `option`, `list`, `pitch`, `scale` are also module names —
-; `parser.rs`'s MODULE_NAME lets a module be named after a type or a domain
-; (`import std::harmony;`, `mod list;`). They are captured by parent here,
-; never by bare text: a flat list cannot tell `harmony { ... }` from
-; `std::harmony`, and guessing from text is exactly the bug this section
-; exists to prevent.
+; `harmony`, `pitch`, `scale` are also module names — `parser.rs`'s
+; MODULE_NAME lets a module be named after a domain (`import std::harmony;`,
+; `mod pitch;`). They are captured by parent here, never by bare text: a flat
+; list cannot tell `harmony { ... }` from `std::harmony`, and guessing from
+; text is exactly the bug this section exists to prevent.
 
 (harmony_declaration "harmony" @keyword)
-(option_type "option" @keyword)
-(list_type "list" @keyword)
+(option_type "Option" @keyword)
+(list_type "List" @keyword)
 (scale_expression "scale" @keyword)
 (in_scale_statement "scale" @keyword)
 
@@ -116,8 +117,8 @@
 ] @boolean
 
 [
-  "some"
-  "none"
+  "Some"
+  "None"
 ] @constant.builtin
 
 ; --- The music itself ------------------------------------------------------
@@ -162,6 +163,12 @@
 ; punctuation for the same reason `/` is: the real highlighter files all three
 ; under `TokenClass::Punctuation`, and a second reader owns no vocabulary.
 ;
+; `<` and `>` are also the two halves of a type parameter, and they take no
+; second entry for it. `>` reads one way — accent in a bar, closing half in a
+; type — because the real lexer has one token for it, and `<` joins the same
+; list rather than the bracket list above: brackets are the list literal, and
+; that is the whole point of the character having moved.
+;
 ; `#` is here rather than with the pitches because that is where the real
 ; highlighter puts it: a sharp inside `g#4` never reaches this list — the
 ; whole literal is one token — and the one that stands alone, in `key g#
@@ -174,6 +181,7 @@
   "/"
   "#"
   "|"
+  "<"
   ">"
   "^"
 ] @punctuation.delimiter
@@ -196,15 +204,11 @@
 
 (import_statement (identifier) @variable)
 (import_statement "harmony" @variable)
-(import_statement "option" @variable)
-(import_statement "list" @variable)
 (import_statement "pitch" @variable)
 (import_statement "scale" @variable)
 
 (mod_declaration (identifier) @variable)
 (mod_declaration "harmony" @variable)
-(mod_declaration "option" @variable)
-(mod_declaration "list" @variable)
 (mod_declaration "pitch" @variable)
 (mod_declaration "scale" @variable)
 
@@ -214,12 +218,8 @@
 ; structure — parts, patches, buses, signatures, structures — is a type in
 ; the editor's vocabulary.
 
-(type_name "pitch" @type.builtin)
-(type_name "music" @type.builtin)
-(type_name "scale" @type.builtin)
-(type_name "key" @type.builtin)
-(type_name "degree" @type.builtin)
-(type_name "frame" @type.builtin)
+; A type is an identifier — a capital is what makes it one — so there is no
+; keyword to capture here and the position does all the work.
 (type_name (identifier) @type)
 
 (part_declaration name: (identifier) @type)
@@ -254,6 +254,11 @@
 ; The studio's processors are the language's builtins.
 (call_expression name: (identifier) @function.builtin)
 
+; A claim is one of a fixed few the compiler knows, so it paints as a builtin
+; rather than as something the piece defined — nothing in a `.musa` file
+; declares `pitches_in`.
+(assert_statement claim: (identifier) @function.builtin)
+
 ; --- Fields and arguments: red ---------------------------------------------------
 ;
 ; Rust paints struct fields red; musa's fields are the named parts of a
@@ -280,3 +285,14 @@
 
 ; A bar's name is a target, not a value.
 (bar_statement name: (identifier) @label)
+
+; --- A kernel quote ---------------------------------------------------------
+;
+; `Timeline` and its payload are types, the same two words `musa-kernel`'s own
+; classifier calls types (`crates/musa-kernel/src/editor.rs`). Inside the body
+; the words belong to the kernel's grammar, and an editor colouring them from
+; here would be a second copy of that lexis; what is marked instead is the
+; seam — the quote's head, and the `${` that lets the host back in.
+(kernel_quote constructor: (identifier) @type)
+(kernel_quote payload: (identifier) @type)
+(kernel_hole "$" @punctuation.special)

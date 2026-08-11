@@ -1,6 +1,5 @@
-; Locals (prompt 80): the scopes an editor's rename-what-you-see and
-; occurrence-highlighting read. The language server (prompt 78) is the
-; semantic rename; this is the lexical one.
+; The scopes an editor's rename-what-you-see and occurrence-highlighting
+; read. The language server is the semantic rename; this is the lexical one.
 (piece_declaration) @local.scope
 (template_declaration) @local.scope
 (structure_declaration) @local.scope
@@ -9,6 +8,7 @@
 (block) @local.scope
 (function_declaration) @local.scope
 (music_expression) @local.scope
+(kernel_quote) @local.scope
 (match_expression) @local.scope
 
 (motif_declaration name: (identifier) @local.definition)

@@ -20,6 +20,16 @@ The extension embodies the same division the musa repository draws between `musa
   completion, quick fixes, and semantic tokens, which refine the grammar's highlighting rather than fight it
   (`semantic_token_rules.json` maps the server's legend onto the same scopes).
 
+- **Presentation** is the one thing `src/lib.rs` does beyond launching. Zed lets an extension say how a completion and a
+  symbol should look, and the server already sends the signature the compiler settled on — so that signature is handed
+  back as *code*, for the embedded grammar to highlight. A menu row reads `fn lifted(what: Music, by: Interval = P5) ->
+  Music` in the same colours as the buffer. Where the server describes something in prose instead of in Musa (`keyword`,
+  `scale collection`), the description rides beside the name, dimmed, because prose painted by a music grammar is worse
+  than prose painted by nothing.
+
+`SMOKE.md` is the manual checklist for what the automated tests cannot see, and names the two things the server offers
+that Zed's extension API has nowhere to put yet.
+
 ## Install (development)
 
 1. Build the server, in a checkout of the musa repository:
