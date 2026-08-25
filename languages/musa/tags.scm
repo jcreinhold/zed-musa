@@ -19,23 +19,14 @@
 (voice_declaration
   name: (identifier) @name) @definition.variable
 
-(piece_declaration
-  template_name: (identifier) @name) @definition.type
-
-(make_statement
-  name: (identifier) @name) @definition.variable
-
-(make_statement
-  template: (identifier) @name) @reference.call
-
-(signature_declaration
+(data_declaration
   name: (identifier) @name) @definition.type
 
-(structure_declaration
+(record_declaration
   name: (identifier) @name) @definition.type
 
-(structure_declaration
-  signature: (identifier) @name) @reference.type
+(enum_declaration
+  name: (identifier) @name) @definition.type
 
 (patch_declaration
   name: (identifier) @name) @definition.type

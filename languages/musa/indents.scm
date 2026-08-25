@@ -1,10 +1,10 @@
 ; Every braced body indents; closers end it.
 [
   (piece_declaration)
-  (library_declaration)
-  (template_declaration)
-  (signature_declaration)
-  (structure_declaration)
+  (data_declaration)
+  (record_declaration)
+  (enum_declaration)
+  (impl_declaration)
   (score_declaration)
   (part_declaration)
   (voice_declaration)
@@ -24,9 +24,11 @@
   (argument_list)
   (expression_argument_list)
   (music_expression)
-  (kernel_quote_body)
+  (events_quote_body)
   (match_expression)
   (block_expression)
+  (record_literal_expression)
+  (enum_case)
 ] @indent
 
 ["}" "]" ")"] @end

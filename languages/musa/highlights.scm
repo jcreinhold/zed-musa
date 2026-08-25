@@ -23,12 +23,7 @@
 
 [
   "piece"
-  "library"
-  "template"
-  "signature"
-  "structure"
   "mod"
-  "make"
   "as"
   "tempo"
   "meter"
@@ -53,7 +48,6 @@
   "groove"
   "grace"
   "tuplet"
-  "performance"
   "profile"
   "mark"
   "studio"
@@ -86,10 +80,27 @@
   "senza"
   "let"
   "fn"
+  "data"
+  "record"
+  "enum"
+  ; `impl` — the word that opens a type's namespace (`01-surface.md` §1.5).
+  "impl"
+  ; The one visibility marker (`01-surface.md` §1.3). It reads as a keyword of
+  ; the declaration it stands before, because that is what it is.
+  "private"
   "music"
-  "kernel"
+  "events"
+  ; The other quotation's word, and the `at` that names its anchor
+  ; (`docs/rules/language/11-quotation.md` §2).
+  "quote"
   "import"
+  ; `syntax`, in both places it is written: the header statement that names
+  ; which package reads a region, and the region itself. The word is the one
+  ; thing about a region this reader is entitled to an opinion about.
+  "syntax"
   "match"
+  "if"
+  "else"
   ; `use` alone, as TokenClass::Use says: it is where material comes from.
   ; Zed has no keyword subcategories, so it takes the keyword color.
   "use"
@@ -97,15 +108,17 @@
 
 ; --- Keywords whose class depends on where they stand -----------------------
 ;
-; `harmony`, `pitch`, `scale` are also module names — `parser.rs`'s
+; `harmony`, `performance`, `pitch`, `scale` are also module names — `parser.rs`'s
 ; MODULE_NAME lets a module be named after a domain (`import std::harmony;`,
 ; `mod pitch;`). They are captured by parent here, never by bare text: a flat
 ; list cannot tell `harmony { ... }` from `std::harmony`, and guessing from
 ; text is exactly the bug this section exists to prevent.
 
 (harmony_declaration "harmony" @keyword)
+(performance_declaration "performance" @keyword)
 (option_type "Option" @keyword)
 (list_type "List" @keyword)
+(result_type "Result" @keyword)
 (scale_expression "scale" @keyword)
 (in_scale_statement "scale" @keyword)
 
@@ -119,6 +132,8 @@
 [
   "Some"
   "None"
+  "Ok"
+  "Err"
 ] @constant.builtin
 
 ; --- The music itself ------------------------------------------------------
@@ -142,12 +157,20 @@
 
 ; --- Operators and punctuation ----------------------------------------------
 
+; `==`, `+`, and `*` join `-` here. All four are `TokenClass::Punctuation` in
+; the real highlighter, which draws no operator/punctuation line at all; this
+; reader draws one, and an arithmetic sign belongs on the side `-` is already
+; on. `/` stays below with the barline, because in `c4/4` it is a duration.
 [
   "->"
   "|>"
   "="
+  "=="
   "-"
+  "+"
+  "*"
   "~"
+  "?"
 ] @operator
 
 [
@@ -204,19 +227,20 @@
 
 (import_statement (identifier) @variable)
 (import_statement "harmony" @variable)
+(import_statement "performance" @variable)
 (import_statement "pitch" @variable)
 (import_statement "scale" @variable)
 
 (mod_declaration (identifier) @variable)
 (mod_declaration "harmony" @variable)
+(mod_declaration "performance" @variable)
 (mod_declaration "pitch" @variable)
 (mod_declaration "scale" @variable)
 
 ; --- Types: cyan --------------------------------------------------------------
 ;
 ; The language's own type words are builtins; what the composer declares as
-; structure — parts, patches, buses, signatures, structures — is a type in
-; the editor's vocabulary.
+; structure — parts, patches, buses — is a type in the editor's vocabulary.
 
 ; A type is an identifier — a capital is what makes it one — so there is no
 ; keyword to capture here and the position does all the work.
@@ -225,9 +249,24 @@
 (part_declaration name: (identifier) @type)
 (patch_declaration name: (identifier) @type)
 (bus_declaration name: (identifier) @type)
-(signature_declaration name: (identifier) @type)
-(structure_declaration name: (identifier) @type)
-(structure_declaration signature: (identifier) @type)
+
+; A declaration names a type, and the parameters it abstracts over are types
+; the same way.
+(data_declaration name: (identifier) @type)
+(type_parameter (identifier) @type)
+
+; §1.2 and §1.3's two declarations name types the same way, and so does the
+; type written in front of a literal or a pattern. An enum *case* is a name in
+; that type's namespace rather than a type of its own, so it takes the
+; vocabulary colour further down instead.
+(record_declaration name: (identifier) @type)
+
+; An `impl` block names no type of its own: `impl Pitch` writes its head as a
+; type expression, which the type rules above already paint.
+(enum_declaration name: (identifier) @type)
+(record_literal_expression type: (identifier) @type)
+(path_expression type: (identifier) @type)
+(pattern type: (identifier) @type)
 
 (assign_statement source: (identifier) @type)
 (assign_statement destination: (identifier) @type)
@@ -244,11 +283,13 @@
 (motif_declaration name: (identifier) @function)
 (fragment_declaration name: (identifier) @function)
 (function_declaration name: (identifier) @function)
-; A template's own name, and the template a `make` is made from.
-(piece_declaration template_name: (identifier) @function)
-(make_statement template: (identifier) @function)
-
 (application_expression (name_expression (identifier) @function))
+
+; A method call paints its method like the function it resolves to. The node
+; exists only where a name could not have been written — `f(x).m(y)`,
+; `xs[i].m(y)`, `(p).m(y)` — because `low.rise()` is a name until resolution
+; says otherwise, and the rule above has already painted that one.
+(method_call_expression method: (identifier) @function)
 (mobile_statement fragment: (identifier) @function)
 
 ; The studio's processors are the language's builtins.
@@ -262,15 +303,21 @@
 ; --- Fields and arguments: red ---------------------------------------------------
 ;
 ; Rust paints struct fields red; musa's fields are the named parts of a
-; statement or expression: settings keys, signature members, and named
-; arguments.
+; statement or expression: settings keys and named arguments.
 
 (setting_statement name: (identifier) @property)
-(signature_member name: (identifier) @property)
+(data_field name: (identifier) @property)
+; A record's fields, everywhere one is written: declared, initialised, matched,
+; and named on the left of an update. The update's left is a *path*, so every
+; segment of it is a field.
+(field_declaration name: (identifier) @property)
+(field_initializer name: (identifier) @property)
+(field_pattern name: (identifier) @property)
+(field_path (identifier) @property)
 (expression_argument name: (identifier) @property)
 
-; Parameters are the declaration side of an argument.
-(motif_parameter name: (identifier) @variable.parameter)
+; Parameters are the declaration side of an argument — motif parameters are
+; the same `parameter` node a `fn`'s are, so the one query covers both.
 (parameter name: (identifier) @variable.parameter)
 
 ; --- Vocabulary names: yellow -----------------------------------------------------
@@ -283,16 +330,42 @@
 (dynamic_statement mark: (identifier) @constant)
 (clef_statement name: (identifier) @constant)
 
+; A declared constructor is a variant of an enum in the literal sense: it is
+; one of the finitely many ways its type is written, in the declaration and
+; in the pattern that takes it apart.
+(data_variant name: (identifier) @constant)
+(pattern constructor: (identifier) @constant)
+
+; §1.3's cases are the same thing, and the namespace in front of one does not
+; change what the word is: `Tying::Held` is a case wherever it is written.
+(enum_case name: (identifier) @constant)
+(path_expression member: (identifier) @constant)
+(pattern case: (identifier) @constant)
+
 ; A bar's name is a target, not a value.
 (bar_statement name: (identifier) @label)
 
-; --- A kernel quote ---------------------------------------------------------
+; --- An event track quote ---------------------------------------------------------
 ;
-; `Timeline` and its payload are types, the same two words `musa-kernel`'s own
-; classifier calls types (`crates/musa-kernel/src/editor.rs`). Inside the body
-; the words belong to the kernel's grammar, and an editor colouring them from
+; `EventTrack`, its coordinate, and its payload are types — the same words
+; `musa-events`'s own classifier calls types (`crates/musa-events/src/editor.rs`).
+; Inside the body
+; the words belong to the event track's grammar, and an editor colouring them from
 ; here would be a second copy of that lexis; what is marked instead is the
 ; seam — the quote's head, and the `${` that lets the host back in.
-(kernel_quote constructor: (identifier) @type)
-(kernel_quote payload: (identifier) @type)
-(kernel_hole "$" @punctuation.special)
+(events_quote constructor: (identifier) @type)
+(events_quote coordinate: (identifier) @type)
+(events_quote payload: (identifier) @type)
+(events_hole "$" @punctuation.special)
+
+; --- A syntax quote ---------------------------------------------------------
+;
+; The opposite of the event track quote's treatment, and for the opposite reason:
+; the body here *is* this grammar, so everything in it is already coloured by
+; the rules above and re-stating them would be the second copy. What is marked
+; is the seam: the `$` of each splice, which is the one character that means
+; something different inside a quote than outside one. `quote` and `at` are in
+; the keyword list above with every other word of the language.
+(splice "$" @punctuation.special)
+(sequence_splice "$" @punctuation.special)
+(sequence_splice "." @punctuation.special)

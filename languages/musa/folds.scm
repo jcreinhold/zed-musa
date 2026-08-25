@@ -2,10 +2,10 @@
 ; Comment runs fold in the editor, not the query — a run is not a node.
 [
   (piece_declaration)
-  (library_declaration)
-  (template_declaration)
-  (signature_declaration)
-  (structure_declaration)
+  (data_declaration)
+  (record_declaration)
+  (enum_declaration)
+  (impl_declaration)
   (score_declaration)
   (part_declaration)
   (voice_declaration)
@@ -23,7 +23,9 @@
   (mobile_statement)
   (harmony_declaration)
   (music_expression)
-  (kernel_quote)
+  (events_quote)
   (match_expression)
   (block_expression)
+  (record_literal_expression)
+  (enum_case)
 ] @fold

@@ -6,14 +6,14 @@ repository = "https://github.com/jcreinhold/zed-musa"
 schema_version = 1
 version = "0.1.0"
 
-# The grammar is prompt 80's artifact, pinned by rev; the queries under
-# languages/musa/ are written against its committed node names. Pinned at
-# prompt 112, which moves fn bodies to braces (`fn f() -> t { e }`) and adds
-# the block expression.
+# The grammar is Musa's committed tree-sitter artifact, pinned by rev; the
+# queries under languages/musa/ are written against its committed node names.
+# This revision includes dependent type indices, current declarations and
+# quotation forms, and `performance` as a module path segment.
 [grammars.musa]
 path = "editors/tree-sitter-musa"
 repository = "file:///Users/jcreinhold/Code/musa"
-rev = "a11ddc5e1d506000fc88a206dca10fcbb045c6b2"
+rev = "f38b1689a223a64056d1950df80826f2abc803c3"
 
 [language_servers.musa-lsp]
 languages = ["musa"]

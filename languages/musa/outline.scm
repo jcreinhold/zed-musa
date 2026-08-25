@@ -3,18 +3,20 @@
 (piece_declaration
   name: (string) @name) @item
 
-; A template is named where it is declared, and again where it is made.
-(piece_declaration
-  template_name: (identifier) @name) @item
-
-(make_statement
+(data_declaration
   name: (identifier) @name) @item
 
-(signature_declaration
+(record_declaration
   name: (identifier) @name) @item
 
-(structure_declaration
+(enum_declaration
   name: (identifier) @name) @item
+
+; An `impl` block has no name to outline. It is listed by the type whose
+; namespace it opens, which is the only thing that distinguishes one `impl` in
+; a file from the next.
+(impl_declaration
+  head: (type_expression) @name) @item
 
 ; A module file has no piece to outline, so its children are the outline. The
 ; name is matched by position, since `mod list;` names a module with a word
