@@ -32,6 +32,15 @@ In Zed: **zed: install dev extension**, and choose this directory. Then open
       their own colour. A keyword's row shows the word and a dimmed description beside it.
 - [ ] **Completion, site-aware.** Inside `assert realizes(chord c major, ` the three realization policies sort to the
       top. Inside `${` in `../musa/examples/kernel-splice.musa`, the music-typed bindings do.
+- [ ] **Sound declaration help.** Open `../musa/examples/glass-mountain.musa`. Hover `lowpass`; the popup gives the
+      checked source signature, exact unit/default/range facts, source origin, and registered primitive support. Inside
+      its call, `resonance:` completes before the general vocabulary and no `q:` alias appears.
+- [ ] **Instrument and media facts.** Hover a selected instrument, room, send, clip, or fixed-media cue. The editor shows
+      source declarations and project facts, keeps private graph paths out of the musical contract, and never calls a
+      part a track.
+- [ ] **Foreign adapter and asset state.** In a project containing an `instrument ... from` declaration, hover an SFZ
+      or SoundFont instrument. The popup labels `sfz@1` or `sf2@1`, the checked sample-map result, named refusal classes,
+      and the current verified/missing/unlocked/digest asset state. The extension does not parse the foreign file.
 - [ ] **Signature help.** Type an open paren after a declared function. The parameters appear; a comma advances the
       highlight.
 - [ ] **Outline.** `outline: toggle` lists `signature CanonMaterial`, `template Canon`, the `make` instances, and the
@@ -44,6 +53,9 @@ In Zed: **zed: install dev extension**, and choose this directory. Then open
       the octave is the composer's choice.
 - [ ] **Kernel documents.** Open a `.musa.kernel` file: highlighting and the outline answer; surface-language
       completion does not, because a kernel document declares none.
+- [ ] **Stale semantic answers.** Break the current source after one successful compile. Sound hover/navigation keeps
+      answering from the last valid artifact with its stale revision relationship, while asset status reflects the
+      current verified closure.
 
 ## What Zed does not surface yet
 
